@@ -63,15 +63,15 @@ export default function Resumes() {
     <Layout>
       <div className="bg-white shadow overflow-hidden sm:rounded-lg p-6">
         <div className="px-4 py-5 sm:px-6">
-          <h1 className="text-3xl font-bold text-gray-900">Resumes</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Currículums</h1>
           <p className="mt-1 max-w-2xl text-sm text-gray-500">
-            Upload and manage candidate resumes
+          Subir y gestionar currículums de candidatos
           </p>
         </div>
 
         <div className="mt-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Upload Resume (PDF or DOCX)</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Cargar currículum (PDF o DOCX)</label>
             <div 
               {...getRootProps()} 
               className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md cursor-pointer hover:bg-gray-50"
@@ -93,22 +93,22 @@ export default function Resumes() {
                 </svg>
                 <div className="flex text-sm text-gray-600">
                   <input {...getInputProps()} />
-                  <p>Drag and drop a resume file here, or click to select a file</p>
+                  <p>Arrastre y suelte un archivo aquí o haga clic para seleccionar un archivo</p>
                 </div>
-                <p className="text-xs text-gray-500">PDF or DOCX up to 10MB</p>
-                <p className="text-xs text-gray-500 font-medium">All candidate information will be extracted automatically from the file</p>
+                <p className="text-xs text-gray-500">PDF o DOCX hasta 10MB</p>
+                <p className="text-xs text-gray-500 font-medium">Toda la información del candidato se extraerá automáticamente del archivo.</p>
               </div>
             </div>
           </div>
-          {uploading && <p className="mt-2 text-sm text-gray-500">Uploading resume...</p>}
+          {uploading && <p className="mt-2 text-sm text-gray-500">Subiendo archivo...</p>}
         </div>
 
         <div className="mt-8">
-          <h2 className="text-xl font-semibold text-gray-800">Uploaded Resumes</h2>
+          <h2 className="text-xl font-semibold text-gray-800">CVs subidos</h2>
           {loading ? (
-            <p className="mt-4 text-gray-500">Loading resumes...</p>
+            <p className="mt-4 text-gray-500">Cargando currículums...</p>
           ) : resumes.length === 0 ? (
-            <p className="mt-4 text-gray-500">No resumes found. Upload one above.</p>
+            <p className="mt-4 text-gray-500">No hay currículums encontrados. Sube uno arriba..</p>
           ) : (
             <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
               {resumes.map((resume) => (
@@ -119,14 +119,14 @@ export default function Resumes() {
                       onClick={() => handleDelete(resume.id)}
                       className="text-red-600 hover:text-red-800"
                     >
-                      Delete
+                      Eliminar
                     </button>
                   </div>
                   {resume.email && <p className="text-sm text-gray-600">Email: {resume.email}</p>}
-                  {resume.phone && <p className="text-sm text-gray-600">Phone: {resume.phone}</p>}
+                  {resume.phone && <p className="text-sm text-gray-600">Teléfono: {resume.phone}</p>}
                   <div className="mt-2">
                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                      Resume Uploaded
+                      Currículum subido
                     </span>
                   </div>
                 </div>
