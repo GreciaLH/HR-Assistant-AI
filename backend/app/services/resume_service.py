@@ -8,8 +8,6 @@ from ..core.config import settings
 from ..utils.file_handler import save_upload_file, extract_text_from_file
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage
-from langchain.chains import LLMChain
-from langchain.prompts import PromptTemplate
 
 async def create_resume_from_file(db: Session, file: UploadFile):
     """
@@ -44,48 +42,7 @@ async def create_resume_from_file(db: Session, file: UploadFile):
     db.refresh(db_resume)
     return db_resume
 
-def extract_candidate_info(content: str):
-    """
-    Extract candidate name, email and phone from resume content
-    """
-    if not settings.OPENAI_API_KEY:
-        # Si no hay API key, devolver datos de ejemplo
-        return {
-            "name": "Nombre Candidato",
-            "email": "candidato@ejemplo.com",
-            "phone": "123-456-7890"
-        }
-    
-    prompt_template = PromptTemplate(
-        input_variables=["content"],
-        template="""
-        Extrae la información básica del candidato del siguiente currículum en español:
-        
-        {content}
-        
-        Devuelve solo los datos en el siguiente formato JSON:
-        {{
-            "name": "Nombre Completo",
-            "email": "correo@ejemplo.com",
-            "phone": "Número de Teléfono"
-        }}
-        """
-    )
-    
-    # Actualizar para usar gpt-3.5-turbo en lugar de text-davinci-003
-    llm = OpenAI(model_name="text-davinci-003", temperature=0, api_key=settings.OPENAI_API_KEY)
-    chain = LLMChain(llm=llm, prompt=prompt_template)
-    
-    try:
-        result = chain.run(content=content)
-        return json.loads(result)
-    except Exception as e:
-        print(f"Error extracting candidate info: {e}")
-        return {
-            "name": "Candidato Desconocido",
-            "email": None,
-            "phone": None
-        }
+
 
 def get_resume(db: Session, resume_id: int):
     return db.query(Resume).filter(Resume.id == resume_id).first()
