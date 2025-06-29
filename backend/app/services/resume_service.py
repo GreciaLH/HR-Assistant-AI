@@ -105,11 +105,11 @@ def extract_resume_data(content: str):
     }}
     """
     
-    # Usar ChatOpenAI en lugar de OpenAI
+    # Inicializar el modelo de chat de OpenAI para procesar el texto del currículum
     chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, api_key=settings.OPENAI_API_KEY)
     
     try:
-        # Usar chat directamente en lugar de chain
+        # Procesar el texto del currículum
         messages = [HumanMessage(content=prompt)]
         result = chat(messages).content
         return json.loads(result)
@@ -149,7 +149,7 @@ def extract_candidate_info(content: str):
     chat = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, api_key=settings.OPENAI_API_KEY)
     
     try:
-        # Usar chat directamente en lugar de chain
+        # Procesar el texto del currículum
         messages = [HumanMessage(content=prompt)]
         result = chat(messages).content
         return json.loads(result)
